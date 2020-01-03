@@ -225,7 +225,6 @@ a {
   display: none;
   z-index: 999;
   position: fixed;
-  padding-top: 5px;
   overflow: hidden;
   text-align: center;
   border-radius: 3px;
@@ -545,7 +544,8 @@ ul.pagination li:hover a {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
-  background-image: url(../img/paralax.jpg);
+  background-image: url(../img/banner/footer.jpg);
+  background-position-y: -405px;
 }
 .instagram-section .instagram-link {
   top: 50%;
@@ -965,6 +965,7 @@ ul.pagination li:hover a {
   margin: 0 auto;
   margin-bottom: 20px;
   border-radius: 100%;
+  background: url(../img/my/w.png);
   background-color: #e5e5e5;
 }
 .sidebar-testimonial .carousel-item .item-img > span {
@@ -1160,7 +1161,6 @@ ul.pagination li:hover a {
 /* - 7.4 - sidebar-subscribe - Start
 ================================================== */
 .sidebar-subscribe {
-  text-align: center;
 }
 .sidebar-subscribe .validate {
   padding: 5px 10px;
