@@ -5,6 +5,7 @@ var Main = {
         {
           url: './img/banner/banner8.jpg',
           tag: 'HTML5',
+          href:'./act/html/index.html',
           title: 'HTML5 是定义 HTML 标准的最新的版本',
           detile: '它是一个新版本的HTML语言，具有新的元素，属性和行为，\n\r\b它有更大的技术集，允许构建更多样化和更强大的网站和应用程序。这个集合有时称为HTML5和它的朋友们，不过大多数时候仅缩写为一个词 HTML5。'
         },
@@ -59,6 +60,7 @@ var Main = {
       blogs: [{
         url:'./img/artilce/banner1.jpeg',
         tag: 'Html、Css',
+        href:'./act/html/index.html',
         title: 'HTML 超文本标记语言',
         detile: 'HTML是一种基础技术，常与CSS、JavaScript一起被众多网站用于设计网页、网页应用程序以及移动应用程序的用户界面[3]。网页浏览器可以读取HTML文件，并将其渲染成可视化网页。HTML描述了一个网站的结构语义随着线索的呈现，使之成为一种标记语言而非编程语言。',
         name: 'wangzc',
@@ -96,6 +98,13 @@ var Main = {
     };
   },
   methods: {
+    gotoPage(e) {
+      if (!e.href) {
+        this.open();
+        return
+      }
+      location.href = e.href
+    },
     open() {
       this.$message('系统维护中');
     },

@@ -3,8 +3,9 @@
 
 <head>
 	<meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
 	<title>王志超的网站</title>
 
 	<!-- css include -->
@@ -23,6 +24,8 @@
 	</link>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
 	<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
 </head>
 
 
@@ -71,15 +74,15 @@
 								</a>
 								<ul id="nav-mobile" class="main-menu center-align hide-on-med-and-down">
 									<li class="active"><a href="index.html">主页</a></li>
-									<li><a href="cateogry.html">Html教程</a></li>
+									<li><a href="./act/html/index.html">Html教程</a></li>
 									<!-- 	<li class="dropdown">
 										<a >PAGES <i class="icofont icofont-simple-down"></i></a>
 										<ul class="dropdown-container">
 											<li><a href="404.html">404 Page</a></li>
 										</ul>
 									</li> -->
-									<li><a href="single-blog.html">Javascript教程</a></li>
-									<li><a href="contact.html">联系我</a></li>
+									<li><a href="#">Javascript教程</a></li>
+									<li><a href="#">联系我</a></li>
 								</ul>
 								<!-- /.main-menu -->
 
@@ -87,9 +90,9 @@
 								<ul class="side-nav" id="mobile-demo">
 									<li class="snavlogo center-align"><img src="img/logo/logo.png" alt="logo"></li>
 									<li class="active"><a href="index.html">主页</a></li>
-									<li><a href="cateogry.html">Html教程</a></li>
-									<li><a href="single-blog.html">Javascript教程</a></li>
-									<li><a href="contact.html">联系我</a></li>
+									<li><a href="./act/html/index.html">Html教程</a></li>
+									<li><a href="#">Javascript教程</a></li>
+									<li><a href="#">联系我</a></li>
 								</ul>
 							</div>
 							<!-- main-menu -->
@@ -141,7 +144,7 @@
 								<p>
 									{{item.detile}}
 								</p>
-								<a @click='open' class="custom-btn waves-effect waves-light">查看更多</a>
+								<a @click='gotoPage(item)' class="custom-btn waves-effect waves-light">查看更多</a>
 							</div>
 						</li>
 					</ul>
@@ -173,7 +176,7 @@
 							<!-- /.card-image -->
 							<div class="card-stacked">
 								<div class="card-content">
-									<a class="tag left l-blue mb-10">{{item.title}}</a>
+									<a class="tag left l-blue mb-10" @click='gotoPage(item)'>{{item.title}}</a>
 									<a @click='open' class="sm-name">{{item.detile}}</a>
 								</div>
 								<!-- /.card-content -->
@@ -216,7 +219,7 @@
 
 						<div class="blogs mb-30" v-for='(item,index) in blogs' :key="index">
 							<div class="card">
-								<div class="card-image">
+								<div class="card-image" v-if='item.url'>
 									<img :src='item.url' alt="Image">
 									<a
 										class="btn-floating center-align cmn-bgcolor halfway-fab waves-effect waves-light">
@@ -225,10 +228,10 @@
 								</div>
 								<!-- /.card-image -->
 								<div class="card-content w100dt">
-									<p>
+									<p v-if='item.tag'>
 										<a class="tag left w100dt l-blue mb-30">{{item.tag}}</a>
 									</p>
-									<a href="single-blog.html" class="card-title">
+									<a @click='gotoPage(item)' class="card-title">
 										{{item.title}}
 									</a>
 									<p class="mb-30">
@@ -248,12 +251,12 @@
 									<ul class="post-mate right">
 										<li class="like">
 											<a>
-												<i class="icofont icofont-heart-alt"></i>  {{item.like}}
+												<i class="icofont icofont-heart-alt"></i> {{item.like}}
 											</a>
 										</li>
 										<li class="comment">
 											<a>
-												<i class="icofont icofont-comment"></i>  {{item.number}}
+												<i class="icofont icofont-comment"></i> {{item.number}}
 											</a>
 										</li>
 									</ul>
@@ -264,9 +267,9 @@
 						</div>
 						<!-- /.blogs -->
 						<!-- /.blogs -->
-				
+
 						<ul class="pagination w100dt">
-				<!-- 			<el-pagination
+							<!-- 			<el-pagination
 							background
 							layout="prev, pager, next"
 							:total="1000">
@@ -302,7 +305,20 @@
 									<h2>王志超</h2>
 									<small>前端码农</small>
 									<p>
+										<span id="busuanzi_container_site_pv">本站总访问量<span
+												id="busuanzi_value_site_pv"></span>次</span>
+
+									</p>
+								</div>
+								<div class="carousel-item">
+									<div class="item-img">
+										<span></span>
+									</div>
+									<h2>王志超</h2>
+									<small>前端码农</small>
+									<p>
 										学无止境
+
 									</p>
 								</div>
 							</div>
@@ -319,19 +335,20 @@
 
 							<ul class="followme-links w100dt">
 								<li class="mrb15">
-									<a class="facebook" target="_blank"  href="https://www.cnblogs.com/wangzhichao/">
+									<a class="facebook" target="_blank" href="https://www.cnblogs.com/wangzhichao/">
 										<i class="iconfont icon-bokeyuan"></i>
 										<small class="Followers white-text">354 Likes</small>
 									</a>
 								</li>
 								<li class="mrb15">
-									<a class="twitter" target="_blank"  href="https://github.com/wzc570738205">
+									<a class="twitter" target="_blank" href="https://github.com/wzc570738205">
 										<i class="iconfont icon-git"></i>
 										<small class="Followers white-text">8 Follows</small>
 									</a>
 								</li>
 								<li>
-									<a class="google-plus" target="_blank"  href="//shang.qq.com/wpa/qunwpa?idkey=f528775f242a7c39fe8512383febb8990e621bf97354c2fb82f6832097b7c501">
+									<a class="google-plus" target="_blank"
+										href="//shang.qq.com/wpa/qunwpa?idkey=f528775f242a7c39fe8512383febb8990e621bf97354c2fb82f6832097b7c501">
 										<i class="iconfont icon-qq"></i>
 										<small class="Followers white-text">256 Follows</small>
 									</a>
@@ -341,133 +358,6 @@
 						</div>
 						<!-- /.sidebar-followme -->
 
-
-
-
-						<div class="featured-posts w100dt mb-30" style="display: none;">
-							<div class="sidebar-title center-align">
-								<h2>Featured Posts</h2>
-							</div>
-							<!-- /.sidebar-title -->
-
-							<div class="sidebar-posts">
-								<div class="card">
-									<div class="card-image mb-10">
-										<img src="img/blog3.jpg" alt="Image">
-										<span class="effect"></span>
-									</div>
-									<!-- /.card-image -->
-									<div class="card-content w100dt">
-										<p>
-											<a class="tag left w100dt l-blue mb-10">Lifestyle</a>
-										</p>
-										<a href="single-blog.html" class="card-title">
-											Lorem Ipsum Dolor Site Amet Consectetur Adipisicing Elito seddo Eiusmod
-										</a>
-										<ul class="post-mate-time left">
-											<li>
-												<p class="hero left">
-													By - <a class="l-blue">SujonMaji</a>
-												</p>
-											</li>
-										</ul>
-
-										<ul class="post-mate right">
-											<li class="like">
-												<a>
-													<i class="icofont icofont-heart-alt"></i> 55
-												</a>
-											</li>
-											<li class="comment">
-												<a>
-													<i class="icofont icofont-comment"></i> 32
-												</a>
-											</li>
-										</ul>
-									</div>
-									<!-- /.card-content -->
-								</div>
-								<!-- /.card -->
-
-								<div class="card">
-									<div class="card-image mb-10">
-										<img src="img/blog1.jpg" alt="Image">
-										<span class="effect"></span>
-									</div>
-									<!-- /.card-image -->
-									<div class="card-content w100dt">
-										<p>
-											<a class="tag left w100dt l-blue mb-10">Fashion</a>
-										</p>
-										<a href="single-blog.html" class="card-title">
-											Lorem Ipsum Dolor Site Amet Consectetur Adipisicing Elito seddo Eiusmod
-										</a>
-										<ul class="post-mate-time left">
-											<li>
-												<p class="hero left">
-													By - <a class="l-blue">SujonMaji</a>
-												</p>
-											</li>
-										</ul>
-
-										<ul class="post-mate right">
-											<li class="like">
-												<a>
-													<i class="icofont icofont-heart-alt"></i> 55
-												</a>
-											</li>
-											<li class="comment">
-												<a>
-													<i class="icofont icofont-comment"></i> 32
-												</a>
-											</li>
-										</ul>
-									</div>
-									<!-- /.card-content -->
-								</div>
-								<!-- /.card -->
-
-								<div class="card">
-									<div class="card-image mb-10">
-										<img src="img/blog2.jpg" alt="Image">
-										<span class="effect"></span>
-									</div>
-									<!-- /.card-image -->
-									<div class="card-content w100dt">
-										<p>
-											<a class="tag left w100dt l-blue mb-10">Travel</a>
-										</p>
-										<a href="single-blog.html" class="card-title">
-											Lorem Ipsum Dolor Site Amet Consectetur Adipisicing Elito seddo Eiusmod
-										</a>
-										<ul class="post-mate-time left">
-											<li>
-												<p class="hero left">
-													By - <a class="l-blue">SujonMaji</a>
-												</p>
-											</li>
-										</ul>
-
-										<ul class="post-mate right">
-											<li class="like">
-												<a>
-													<i class="icofont icofont-heart-alt"></i> 55
-												</a>
-											</li>
-											<li class="comment">
-												<a>
-													<i class="icofont icofont-comment"></i> 32
-												</a>
-											</li>
-										</ul>
-									</div>
-									<!-- /.card-content -->
-								</div>
-								<!-- /.card -->
-							</div>
-							<!-- /.sidebar-posts -->
-
-						</div>
 
 						<!-- /.featured-posts -->
 
@@ -483,7 +373,6 @@
 							<ul id="tabs-swipe-demo" class="top-post-tab tabs tabs-fixed-width">
 								<li class="tab"><a href="#test-swipe-1" class="active">最多查看</a></li>
 								<li class="tab"><a href="#test-swipe-2">最新</a></li>
-								<li class="tab"><a href="#test-swipe-3">评论</a></li>
 							</ul>
 
 							<div id="test-swipe-1" class="tab-contant most-view">
@@ -497,10 +386,10 @@
 										<!-- /.card-image -->
 										<div class="card-content w100dt">
 											<p>
-												<a class="tag left w100dt l-blue mb-10">Fashion</a>
+												<a class="tag left w100dt l-blue mb-10">置顶🔝</a>
 											</p>
-											<a href="single-blog.html" class="card-title">
-												Lorem Ipsum Dolor Site Amet Consectetur Adipisicing Elito seddo Eiusmod
+											<a href="#" class="card-title">
+												博客园改版最新UI2.0
 											</a>
 											<ul class="post-mate-time left">
 												<li>
@@ -527,26 +416,25 @@
 									</div>
 									<!-- /.card -->
 
-									<div class="hot-post w100dt mb-10">
+									<div class="hot-post w100dt mb-10" v-for='(item,index) in blogs' :key="index">
 										<div class="hot-post-image">
-											<img src="img/img3.jpg" alt="Image">
+											<img :src="item.url" alt="Image">
 											<span class="effect"></span>
 										</div>
 										<!-- /.hot-post-image -->
 										<div class="hot-post-stacked">
 											<p>
-												<a class="tag left w100dt l-blue mb-10">Fashion</a>
+												<a class="tag left w100dt l-blue mb-10">{{item.tag}}</a>
 											</p>
-											<a href="single-blog.html" class="sm-name mb-10">Trud Exercitation EllaMcop
-												Saboris</a>
+											<a @click='gotoPage(item)' class="sm-name mb-10">{{item.title}}</a>
 											<div class="hot-post-action">
 												<p class="hero left">
-													BY - <a class="l-blue">SujonMaji</a>
+													BY - <a class="l-blue">{{item.name}}</a>
 												</p>
 												<ul class="post-mate right">
 													<li class="comment">
 														<a>
-															<i class="icofont icofont-comment"></i> 32
+															<i class="icofont icofont-comment"></i> {{item.number}}
 														</a>
 													</li>
 												</ul>
@@ -558,67 +446,6 @@
 									</div>
 									<!-- /.hot-post -->
 
-									<div class="hot-post w100dt mb-10">
-										<div class="hot-post-image">
-											<img src="img/img2.jpg" alt="Image">
-											<span class="effect"></span>
-										</div>
-										<!-- /.hot-post-image -->
-										<div class="hot-post-stacked">
-											<p>
-												<a class="tag left w100dt l-blue mb-10">Travel</a>
-											</p>
-											<a href="single-blog.html" class="sm-name mb-10">Trud Exercitation EllaMcop
-												Saboris</a>
-											<div class="hot-post-action">
-												<p class="hero left">
-													BY - <a class="l-blue">SujonMaji</a>
-												</p>
-												<ul class="post-mate right">
-													<li class="comment">
-														<a>
-															<i class="icofont icofont-comment"></i> 32
-														</a>
-													</li>
-												</ul>
-												<!-- /.post-mate -->
-											</div>
-											<!-- /.hot-post-action -->
-										</div>
-										<!-- /.hot-post-stacked -->
-									</div>
-									<!-- /.hot-post -->
-
-									<div class="hot-post w100dt mb-10">
-										<div class="hot-post-image">
-											<img src="img/img1.jpg" alt="Image">
-											<span class="effect"></span>
-										</div>
-										<!-- /.hot-post-image -->
-										<div class="hot-post-stacked">
-											<p>
-												<a class="tag left w100dt l-blue mb-10">Lifestyle</a>
-											</p>
-											<a href="single-blog.html" class="sm-name mb-10">Trud Exercitation EllaMcop
-												Saboris</a>
-											<div class="hot-post-action">
-												<p class="hero left">
-													BY - <a class="l-blue">SujonMaji</a>
-												</p>
-												<ul class="post-mate right">
-													<li class="comment">
-														<a>
-															<i class="icofont icofont-comment"></i> 32
-														</a>
-													</li>
-												</ul>
-												<!-- /.post-mate -->
-											</div>
-											<!-- /.hot-post-action -->
-										</div>
-										<!-- /.hot-post-stacked -->
-									</div>
-									<!-- /.hot-post -->
 								</div>
 								<!-- /.sidebar-posts -->
 
@@ -628,26 +455,25 @@
 
 							<div id="test-swipe-2" class="tab-contant recent-post">
 
-								<div class="hot-post w100dt p-15">
+								<div class="hot-post w100dt p-15" v-for='(item,index) in blogs' :key="index">
 									<div class="hot-post-image">
-										<img src="img/img3.jpg" alt="Image">
+										<img :src="item.url" alt="Image">
 										<span class="effect"></span>
 									</div>
 									<!-- /.hot-post-image -->
 									<div class="hot-post-stacked">
 										<p>
-											<a class="tag left w100dt l-blue mb-10">Fashion</a>
+											<a class="tag left w100dt l-blue mb-10">{{item.tag}}</a>
 										</p>
-										<a href="single-blog.html" class="sm-name mb-10">Trud Exercitation EllaMcop
-											Saboris</a>
+										<a @click='gotoPage(item)' class="sm-name mb-10">{{item.title}}</a>
 										<div class="hot-post-action">
 											<p class="hero left">
-												BY - <a class="l-blue">SujonMaji</a>
+												BY - <a class="l-blue">{{item.name}}</a>
 											</p>
 											<ul class="post-mate right">
 												<li class="comment">
 													<a>
-														<i class="icofont icofont-comment"></i> 32
+														<i class="icofont icofont-comment"></i> {{item.number}}
 													</a>
 												</li>
 											</ul>
@@ -659,170 +485,12 @@
 								</div>
 								<!-- /.hot-post -->
 
-								<div class="hot-post w100dt p-15">
-									<div class="hot-post-image">
-										<img src="img/img2.jpg" alt="Image">
-										<span class="effect"></span>
-									</div>
-									<!-- /.hot-post-image -->
-									<div class="hot-post-stacked">
-										<p>
-											<a class="tag left w100dt l-blue mb-10">Fashion</a>
-										</p>
-										<a href="single-blog.html" class="sm-name mb-10">Trud Exercitation EllaMcop
-											Saboris</a>
-										<div class="hot-post-action">
-											<p class="hero left">
-												BY - <a class="l-blue">SujonMaji</a>
-											</p>
-											<ul class="post-mate right">
-												<li class="comment">
-													<a>
-														<i class="icofont icofont-comment"></i> 32
-													</a>
-												</li>
-											</ul>
-											<!-- /.post-mate -->
-										</div>
-										<!-- /.hot-post-action -->
-									</div>
-									<!-- /.hot-post-stacked -->
-								</div>
-								<!-- /.hot-post -->
-
-								<div class="hot-post w100dt p-15">
-									<div class="hot-post-image">
-										<img src="img/img1.jpg" alt="Image">
-										<span class="effect"></span>
-									</div>
-									<!-- /.hot-post-image -->
-									<div class="hot-post-stacked">
-										<p>
-											<a class="tag left w100dt l-blue mb-10">Fashion</a>
-										</p>
-										<a href="single-blog.html" class="sm-name mb-10">Trud Exercitation EllaMcop
-											Saboris</a>
-										<div class="hot-post-action">
-											<p class="hero left">
-												BY - <a class="l-blue">SujonMaji</a>
-											</p>
-											<ul class="post-mate right">
-												<li class="comment">
-													<a>
-														<i class="icofont icofont-comment"></i> 32
-													</a>
-												</li>
-											</ul>
-											<!-- /.post-mate -->
-										</div>
-										<!-- /.hot-post-action -->
-									</div>
-									<!-- /.hot-post-stacked -->
-								</div>
-								<!-- /.hot-post -->
-
-								<div class="hot-post w100dt p-15">
-									<div class="hot-post-image">
-										<img src="img/img3.jpg" alt="Image">
-										<span class="effect"></span>
-									</div>
-									<!-- /.hot-post-image -->
-									<div class="hot-post-stacked">
-										<p>
-											<a class="tag left w100dt l-blue mb-10">Fashion</a>
-										</p>
-										<a href="single-blog.html" class="sm-name mb-10">Trud Exercitation EllaMcop
-											Saboris</a>
-										<div class="hot-post-action">
-											<p class="hero left">
-												BY - <a class="l-blue">SujonMaji</a>
-											</p>
-											<ul class="post-mate right">
-												<li class="comment">
-													<a>
-														<i class="icofont icofont-comment"></i> 32
-													</a>
-												</li>
-											</ul>
-											<!-- /.post-mate -->
-										</div>
-										<!-- /.hot-post-action -->
-									</div>
-									<!-- /.hot-post-stacked -->
-								</div>
-								<!-- /.hot-post -->
-
-								<div class="hot-post w100dt p-15">
-									<div class="hot-post-image">
-										<img src="img/img2.jpg" alt="Image">
-										<span class="effect"></span>
-									</div>
-									<!-- /.hot-post-image -->
-									<div class="hot-post-stacked">
-										<p>
-											<a class="tag left w100dt l-blue mb-10">Fashion</a>
-										</p>
-										<a href="single-blog.html" class="sm-name mb-10">Trud Exercitation EllaMcop
-											Saboris</a>
-										<div class="hot-post-action">
-											<p class="hero left">
-												BY - <a class="l-blue">SujonMaji</a>
-											</p>
-											<ul class="post-mate right">
-												<li class="comment">
-													<a>
-														<i class="icofont icofont-comment"></i> 32
-													</a>
-												</li>
-											</ul>
-											<!-- /.post-mate -->
-										</div>
-										<!-- /.hot-post-action -->
-									</div>
-									<!-- /.hot-post-stacked -->
-								</div>
-								<!-- /.hot-post -->
-
-								<div class="hot-post w100dt p-15">
-									<div class="hot-post-image">
-										<img src="img/img1.jpg" alt="Image">
-										<span class="effect"></span>
-									</div>
-									<!-- /.hot-post-image -->
-									<div class="hot-post-stacked">
-										<p>
-											<a class="tag left w100dt l-blue mb-10">Fashion</a>
-										</p>
-										<a href="single-blog.html" class="sm-name mb-10">Trud Exercitation EllaMcop
-											Saboris</a>
-										<div class="hot-post-action">
-											<p class="hero left">
-												BY - <a class="l-blue">SujonMaji</a>
-											</p>
-											<ul class="post-mate right">
-												<li class="comment">
-													<a>
-														<i class="icofont icofont-comment"></i> 32
-													</a>
-												</li>
-											</ul>
-											<!-- /.post-mate -->
-										</div>
-										<!-- /.hot-post-action -->
-									</div>
-									<!-- /.hot-post-stacked -->
-								</div>
-								<!-- /.hot-post -->
 
 							</div>
 							<!-- /.recent-post -->
 
 
-							<div id="test-swipe-3" class="tab-contant Comments-post">
-								<!-- 首页评论 -->
-								<!-- /.首页评论 -->
 
-							</div>
 							<!-- /.tab-contant -->
 						</div>
 						<!-- /.top-post -->
@@ -830,18 +498,19 @@
 
 
 
-						<div class="sidebar-subscribe w100dt">
+						<!-- 			<div class="sidebar-subscribe w100dt">
 							<div class="sidebar-title center-align">
 								<h2>说点什么吧</h2>
 							</div>
 
-							<div class="subscribe">
+							<div class="subscribe" style="    max-height: 800px;
+							overflow-y: auto;padding:0 10 10 0!important;">
 								<div id="gitalk-container"></div>
 
 								
 							</div>
 
-						</div> 
+						</div>  -->
 						<!-- /.sidebar-subscribe -->
 
 					</div>
@@ -863,7 +532,8 @@
 		<section id="instagram-section" class="instagram-section w100dt">
 
 			<div class="instagram-link w100dt">
-				<a  href="//shang.qq.com/wpa/qunwpa?idkey=f528775f242a7c39fe8512383febb8990e621bf97354c2fb82f6832097b7c501" target="_blank" rel="noopener noreferrer">
+				<a href="//shang.qq.com/wpa/qunwpa?idkey=f528775f242a7c39fe8512383febb8990e621bf97354c2fb82f6832097b7c501"
+					target="_blank" rel="noopener noreferrer">
 					<span>你可以在这里找到我</span><br>
 					@wangzc
 				</a>
@@ -886,7 +556,7 @@
 						<img src="img/logo/logo.png" alt="brand-logo">
 					</a>
 				</div>
-<!-- 
+				<!-- 
 				<ul class="footer-social-links w100dt center-align mb-30">
 					<li><a class="facebook">FACEBOOK</a></li>
 					<li><a class="twitter">TWITTER</a></li>
@@ -899,7 +569,7 @@
 				<p class="center-align">
 					<i class="icofont icofont-heart-alt l-blue"></i>
 					All Right Reserved&copy;2015, Deasined by
-					<a class="l-blue">HTMLmate</a> 
+					<a class="l-blue">HTMLmate</a>
 				</p>
 
 			</div>
@@ -928,13 +598,14 @@
 </script>
 <script>
 	var gitalk = new Gitalk({
-	  clientID: 'be18b06eea7b7021c473',
-	  clientSecret: '346423d34fa36c72577999644da79935a8935032',
-	  repo: 'wangzc',
-	  owner: 'wzc570738205',
-	  admin: ['wzc570738205'],
-	  id: location.pathname,      // Ensure uniqueness and length less than 50
-	  distractionFreeMode: false  // Facebook-like distraction free mode
+		clientID: 'be18b06eea7b7021c473',
+		clientSecret: '346423d34fa36c72577999644da79935a8935032',
+		repo: 'wangzc',
+		owner: 'wzc570738205',
+		admin: ['wzc570738205'],
+		id: location.pathname, // Ensure uniqueness and length less than 50
+		distractionFreeMode: false // Facebook-like distraction free mode
 	})
-	
-	gitalk.render('gitalk-container')</script>
+
+	//	gitalk.render('gitalk-container')
+</script>
